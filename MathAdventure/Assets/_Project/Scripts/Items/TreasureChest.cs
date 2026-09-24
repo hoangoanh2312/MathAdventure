@@ -5,6 +5,7 @@ public class TreasureChest : MonoBehaviour, IInteractable
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite closedSprite;
     [SerializeField] private Sprite openSprite;
+    [SerializeField] private ChestReward reward;
     [SerializeField] private bool isOpened;
 
     public bool IsOpened => isOpened;
@@ -26,6 +27,7 @@ public class TreasureChest : MonoBehaviour, IInteractable
 
         isOpened = true;
         spriteRenderer.sprite = openSprite;
+        reward?.Reveal();
         Debug.Log("TreasureChest opened");
     }
 
@@ -37,6 +39,12 @@ public class TreasureChest : MonoBehaviour, IInteractable
         ResetToClosed();
     }
 
+    public void ConfigureReward(ChestReward chestReward)
+    {
+        reward = chestReward;
+        reward?.ResetReward();
+    }
+
     private void ResetToClosed()
     {
         isOpened = false;
@@ -45,5 +53,6 @@ public class TreasureChest : MonoBehaviour, IInteractable
         {
             spriteRenderer.sprite = closedSprite;
         }
+        reward?.ResetReward();
     }
 }
