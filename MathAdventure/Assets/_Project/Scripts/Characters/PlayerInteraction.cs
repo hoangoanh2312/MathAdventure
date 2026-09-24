@@ -15,9 +15,13 @@ public class PlayerInteraction : MonoBehaviour
         SelectNearestInteractable();
 
         Keyboard keyboard = Keyboard.current;
-        if (currentInteractable != null && keyboard != null && keyboard.eKey.wasPressedThisFrame)
+        if (currentInteractable != null &&
+            currentInteractable.CanInteract &&
+            keyboard != null &&
+            keyboard.eKey.wasPressedThisFrame)
         {
             currentInteractable.Interact();
+            SelectNearestInteractable();
         }
     }
 
@@ -60,6 +64,8 @@ public class PlayerInteraction : MonoBehaviour
                 invalidEntries.Add(behaviour);
                 continue;
             }
+
+            if (!interactable.CanInteract) continue;
 
             float sqrDistance = (behaviour.transform.position - transform.position).sqrMagnitude;
             if (sqrDistance < nearestSqrDistance)

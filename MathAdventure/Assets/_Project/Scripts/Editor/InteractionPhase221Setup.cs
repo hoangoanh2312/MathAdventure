@@ -21,7 +21,6 @@ public static class InteractionPhase221Setup
 
         InteractionPromptUI promptUI = ConfigurePrompt(uiRoot.transform);
         ConfigurePlayerInteraction(player, promptUI);
-        ConfigureTestInteractable(treasureChest);
 
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
@@ -101,12 +100,6 @@ public static class InteractionPhase221Setup
 
         EditorUtility.SetDirty(interaction);
         EditorUtility.SetDirty(trigger);
-    }
-
-    private static void ConfigureTestInteractable(GameObject treasureChest)
-    {
-        TestInteractable testInteractable = GetOrAddComponent<TestInteractable>(treasureChest);
-        EditorUtility.SetDirty(testInteractable);
     }
 
     private static GameObject FindSceneObject(Scene scene, string objectName)

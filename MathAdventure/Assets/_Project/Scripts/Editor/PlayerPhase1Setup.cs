@@ -148,9 +148,18 @@ public static class PlayerPhase1Setup
         renderer.sprite = defaultSprite;
 
         Rigidbody2D body = player.GetComponent<Rigidbody2D>();
+        body.bodyType = RigidbodyType2D.Dynamic;
         body.gravityScale = 0f;
         body.freezeRotation = true;
         body.interpolation = RigidbodyInterpolation2D.Interpolate;
+        body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+        CapsuleCollider2D physicalCollider = player.GetComponent<CapsuleCollider2D>();
+        physicalCollider.enabled = true;
+        physicalCollider.isTrigger = false;
+        physicalCollider.size = new Vector2(0.65f, 0.35f);
+        physicalCollider.offset = new Vector2(0f, 0.18f);
+        physicalCollider.direction = CapsuleDirection2D.Horizontal;
 
         if (player.GetComponent<PlayerMovement>() == null)
             player.AddComponent<PlayerMovement>();
